@@ -31,7 +31,11 @@ print(f"本地IP地址: {ip_address}")
 #配置账号和密码
 your_account="你的账号";
 your_password="你的密码";
+<<<<<<< HEAD
 your_mac="mac"
+=======
+your_mac="你的mac值可以在请求参数看 或者不代这个参数 浏览器会自动帮你填入"
+>>>>>>> 122b2064390f6558d09cf92057f0487b9fa9b359
 
 # 定义请求的URL和参数
 url = "http://10.17.8.18:801/eportal/portal/login"
