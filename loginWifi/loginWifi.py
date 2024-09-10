@@ -4,10 +4,34 @@ import os
 code = 500
 max_retries = 5
 
+import socket
+
+def get_local_ip():
+    # 创建一个socket对象
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    
+    try:
+        # 连接到一个公共的外部地址
+        s.connect(('8.8.8.8', 80))
+        # 获取本地IP地址
+        local_ip = s.getsockname()[0]
+    except Exception as e:
+        print(f"获取本地IP时出错: {e}")
+        local_ip = '127.0.0.1'  # 返回本地主机地址作为默认
+    finally:
+        # 关闭socket连接
+        s.close()
+
+    return local_ip
+
+# 获取并打印本地IP地址
+ip_address = get_local_ip()
+print(f"本地IP地址: {ip_address}")
+
 #配置账号和密码
 your_account="你的账号";
 your_password="你的密码";
-
+your_mac="mac"
 
 # 定义请求的URL和参数
 url = "http://10.17.8.18:801/eportal/portal/login"
@@ -16,15 +40,15 @@ params = {
     "login_method": "1",
     "user_account": os.getenv("USER_ACCOUNT", your_account+"@telecom"),  # 从环境变量读取，或使用默认值
     "user_password": os.getenv("USER_PASSWORD", your_password),  # 从环境变量读取，或使用默认值
-    "wlan_user_ip": "10.21.102.241",
+    "wlan_user_ip": ip_address,
     "wlan_user_ipv6": "",
-    "wlan_user_mac": "a98450ed357c3e56ed8e8935f300576d71db97133f303b3b",
+    "wlan_user_mac": your_mac,
     "wlan_ac_ip": "10.17.4.1",
     "wlan_ac_name": "",
     "jsVersion": "4.1.3",
     "terminal_type": "1",
     "lang": "zh-cn",
-    "v": "6415",
+    "v": "10234",
     "lang": "zh"
 }
 
